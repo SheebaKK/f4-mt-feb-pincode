@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import HomePage from "./components/HomePage";
+import InfoDisplayPage from "./components/InfoDisplayPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PinCodeContext from "./Context/PincodeContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+import "./style.css"
+
+const App= ()=>{
+
+    const[details, setDetails]= useState(null);
+    function getInfo(info){
+        setDetails(info);
+    }
+
+    return(
+        <PinCodeContext.Provider value={{details ,setDetails}}>
+            
+            <BrowserRouter>
+                <Routes>
+                    <Route path="" element={<HomePage />} />
+                    <Route path="/info" element={<InfoDisplayPage />} />
+                </Routes>
+            </BrowserRouter>
+        </PinCodeContext.Provider>
+    )
 }
 
-export default App;
+export default App
